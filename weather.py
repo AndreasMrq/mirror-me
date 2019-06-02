@@ -18,6 +18,6 @@ class Weather():
         self.information["today"]={"temp":self.cel(rj["currently"]["temperature"]),"icon":rj["currently"]["icon"]}
         self.information
 
-    def cel(temp):
-        #temp is noch ein String!
-        return (temp-32)*(5/9)
+    #Convert Fahrenheit to Celsius
+    def cel(self,temp):
+        return (float(temp)-32)*(5./9.)
