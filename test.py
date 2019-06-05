@@ -1,10 +1,5 @@
-values={"k1":10,"k2":20}
-print(values)
+import threading
 
-class NEW():
-    def dosmthg(self):
-        self.attr="10"
-
-new=NEW()
-new.dosmthg()
-print(new.attr)
+thread=threading.Thread()
+if not thread.isAlive():
+    print("Hä was willst du")
