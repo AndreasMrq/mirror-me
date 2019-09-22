@@ -1,5 +1,3 @@
-import threading
-
-thread=threading.Thread()
-if not thread.isAlive():
-    print("Hä was willst du")
+fstream=open("secrets.txt",'r')
+API=fstream.read()
+print(API)
