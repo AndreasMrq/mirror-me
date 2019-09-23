@@ -1,5 +1,5 @@
 from weather import Weather
-from flask_socketio import SocketIO, emit
+#from flask_socketio import SocketIO, emit
 import threading
 import time
 
