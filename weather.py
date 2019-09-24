@@ -23,3 +23,4 @@ class Weather():
     #Convert Fahrenheit to Celsius
     def cel(self,temp):
         return (float(temp)-32)*(5./9.)
+

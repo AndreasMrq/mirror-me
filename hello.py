@@ -21,3 +21,6 @@ def connect():
     if not weather_thread.is_alive():
         weather_thread=WeatherThread()
         weather_thread.start()
+
+if __name__== '__main__':
+    socketio.run(app)
