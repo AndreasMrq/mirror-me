@@ -11,14 +11,14 @@ darksky_url=f"https://api.darksky.net/forecast/{API}/{lat},{lon}"
 
 class Weather():
     def __init__(self):
+        self.information={}
         self.request()
 
     def request(self):
         r = rq.get(darksky_url)
         rj=r.json()
-        self.information={}
         self.information["today"]={"temp":self.cel(rj["currently"]["temperature"]),"icon":rj["currently"]["icon"]}
-        self.information
+
 
     #Convert Fahrenheit to Celsius
     def cel(self,temp):

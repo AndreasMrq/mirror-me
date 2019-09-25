@@ -11,11 +11,15 @@
       var socket = io.connect();
       socket.on('connect', function(msg) {
           //$('#weather_data').append('<p>Temperature: ' + msg.data + '</p>');
-          $('#isthisit').append('<p>Connected</p>');
+          $('#weather').append('<p>Connected</p>');
       });
-      socket.on('WITNESSME', function(msg) {
+      socket.on('weather_event', function(msg) {
           //$('#weather_data').append('<p>Temperature: ' + msg.data + '</p>');
-          $('#isthisit').append(msg.data);
+          $('#weather').html("Gerade hat es" + msg.temp + "Grad");
+      });
+      socket.on('test_event', function(msg) {
+          //$('#weather_data').append('<p>Temperature: ' + msg.data + '</p>');
+          $('#isthisit').append(msg.content);
       });
     });
     </script>
@@ -32,5 +36,5 @@
   <h1>Hello, World!</h1>
 {% endif %}
 </div>
-<div id="isthisit">"What"</div>
+<div id="weather"></div>
 </html>
