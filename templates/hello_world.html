@@ -10,16 +10,14 @@
   
       var socket = io.connect();
       socket.on('connect', function(msg) {
-          //$('#weather_data').append('<p>Temperature: ' + msg.data + '</p>');
-          $('#weather').append('<p>Connected</p>');
+          $('#debug').append('<p>Connected</p>');
       });
       socket.on('weather_event', function(msg) {
-          //$('#weather_data').append('<p>Temperature: ' + msg.data + '</p>');
-          $('#weather').html("Gerade hat es" + msg.temp + "Grad");
+          $('#weather_today').html("Heute: <p> Max:" + msg.today.tempMax + "Grad</p>"
+                                    + "<p> Min:" + msg.today.tempMin + "</p>");
       });
-      socket.on('test_event', function(msg) {
-          //$('#weather_data').append('<p>Temperature: ' + msg.data + '</p>');
-          $('#isthisit').append(msg.content);
+      socket.on('news_event',function(msg){
+        $('#news').html(msg.title0+"</br>" +msg.title1+"</br>"+msg.title2+"</br>")
       });
     });
     </script>
@@ -36,5 +34,10 @@
   <h1>Hello, World!</h1>
 {% endif %}
 </div>
-<div id="weather"></div>
+<div id=debug></div>
+<h2>Wetter</h2>
+<div id="weather_today"></div>
+<div id="weather_tomorrow"></div>
+<h2>News:</h2>
+<div id="news"></div>
 </html>

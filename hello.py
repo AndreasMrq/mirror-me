@@ -1,24 +1,35 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 from weather import Weather
+from goodnews import GoodNews
 from threading import Lock
+
 
 #from flask import render_template
 app = Flask(__name__)
 socketio=SocketIO(app)
 wt=Weather()
+news=GoodNews()
 
-thread = None
-thread_lock = Lock()
+weather_thread = None
+thread_lock=Lock()
 
-def weather_thread():
-    """Example of how to send server generated events to clients."""
-    count = 0
+news_thread = None
+
+
+def background_weather_thread():
     while True:
-        socketio.sleep(300)
+        #Make a weather request every hour
         wt.request()
-        socketio.emit('weather_event', {'content': count})
+        socketio.emit('weather_event', wt.information)
+        socketio.sleep(3000)
 
+def background_news_thread():
+    while True:
+        #Make a weather request every hour
+        news.request()
+        socketio.emit('news_event', news.news)
+        socketio.sleep(43200)
 
 @app.route('/')
 def hello_world():
@@ -26,12 +37,11 @@ def hello_world():
 
 @socketio.on('connect')
 def connect():       
-    emit('weather_event',wt.information["today"])
-    global thread
+    global weather_thread
     with thread_lock:
-        if thread is None:
-            thread = socketio.start_background_task(weather_thread)
-
+        if weather_thread is None:
+            weather_thread = socketio.start_background_task(background_weather_thread)
+            socketio.start_background_task(background_news_thread)
 
 
 if __name__== '__main__':

@@ -7,7 +7,7 @@ lon = 11.564570
 fstream=open("secrets.txt",'r')
 API=fstream.read()
 
-darksky_url=f"https://api.darksky.net/forecast/{API}/{lat},{lon}"
+darksky_url=f"https://api.darksky.net/forecast/{API}/{lat},{lon}?units=auto"
 
 class Weather():
     def __init__(self):
@@ -17,10 +17,11 @@ class Weather():
     def request(self):
         r = rq.get(darksky_url)
         rj=r.json()
-        self.information["today"]={"temp":self.cel(rj["currently"]["temperature"]),"icon":rj["currently"]["icon"]}
-
-
-    #Convert Fahrenheit to Celsius
-    def cel(self,temp):
-        return (float(temp)-32)*(5./9.)
-
+        today=rj["daily"]["data"][0]
+        tomorrow=rj["daily"]["data"][1]
+        self.information["today"]={"tempMax":today["temperatureHigh"],
+                                   "tempMin":today["temperatureLow"],
+                                   "icon":today["icon"]}
+        self.information["tomorrow"]={"tempMax":tomorrow["temperatureHigh"],
+                                      "tempMin":tomorrow["temperatureLow"],
+                                      "icon":tomorrow["icon"]}
