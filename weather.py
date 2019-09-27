@@ -1,11 +1,12 @@
 import requests as rq
+from helpers import get_api_for
 
 # Coordinates of Bad Tölz for the URL
 lat = 47.761700
 lon = 11.564570
 #Dark Sky API is in secrets.txt, not to be pushed on Github
-fstream=open("secrets.txt",'r')
-API=fstream.read()
+
+API=get_api_for("darksky")
 
 darksky_url=f"https://api.darksky.net/forecast/{API}/{lat},{lon}?units=auto"
 
